@@ -35,58 +35,6 @@ body
     background-color: #fafafa;
 }
 
-#toplayer
-{
-    position: fixed;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 100;
-    background-color: rgba(0, 0, 0, 0.7);
-}
-
-#modal
-{
-    background-color: #fafafa;
-    z-index: 104;
-    position: relative;
-    height: 80%;
-    width: 80%;
-    left: 10%;
-    top: 10%;
-    right: 10%;
-    bottom: 10%;
-    -webkit-border-radius: 2px;
-    border-radius: 2px;
-    border: solid 4px #eaeaea;
-}
-    #modal .chords
-    {
-        padding: 0 10px;
-    }
-    #modal .header
-    {
-        height: 35px;
-        background-color: #eaeaea;
-        font-family: rust-rows;
-        font-weight: light;
-        font-size: 30px;
-        padding: 10px;
-    }
-        #modal .header span
-        {
-            float: left;
-        }
-        #modal .header a
-        {
-            font-weight: bold;
-            text-decoration: none;
-            color: black;
-            float: right;
-        }
-
-
 #content
 {
     width: 900px;
@@ -158,8 +106,17 @@ body
     {
         padding: 10px;
     }
+        #content #chords .breadcrumb
+        {
+            color: #232323;
+            font-size: 20px;
+            font-family: rust-rows;
+            text-decoration: none;
+        }
         #content #chords h2
         {
+            font-size: 20px;
+            display: inline-block;
             font-family: rust-rows;
         }
         #content #chords pre

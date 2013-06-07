@@ -132,18 +132,27 @@ class Song extends Entity
     }
 }
 
+class Config
+{
+	private static $config = null;
+
+	public static function get($value)
+	{
+		self::loadConfig();
+		return self::$config[$value];
+	}
+
+	private static function loadConfig()
+	{
+		if ( ! isset(self::$config))
+		{
+			self::$config = parse_ini_file('config.ini');
+		}
+	}
+}
+
 final class DbConnection
 {
-    /**
-     * Database configuration variables.
-     */
-    private static $dbConfig = array(
-        'database' => 'hyperrust',
-        'hostname' => 'localhost',
-        'username' => 'root',
-        'password' => '',
-    );
-
     /**
      * PDO object
      */
@@ -162,9 +171,9 @@ final class DbConnection
         if (empty(self::$pdo))
         {
             self::$pdo = new \PDO( 
-                sprintf('mysql:dbname=%s;host=%s', self::$dbConfig['database'], self::$dbConfig['hostname']),
-                self::$dbConfig['username'],
-                self::$dbConfig['password']
+                sprintf('mysql:dbname=%s;host=%s', Config::get('database'), Config::get('hostname')),
+                Config::get('username'),
+                Config::get('password')
             );
         }
         return self::$pdo;
@@ -227,8 +236,8 @@ class Chords
 {
     const FIND = 'find';
     const IS = 'is';
-    public static $replacement = '<span class="chord">$1</span>$6';
-    public static $chord_regex = '([ABCDEFG][#b]?\*?m?(aj7?)?(add([2469])?)?(sus[24]?)?[56719]?1?)';
+    public static $replacement = '<span class="chord">$1</span>$7';
+    public static $chord_regex = '([ABCDEFG][#b]?\*?m?(aj7?)?(aug)?[256719]?1?(add([2469])?)?(sus[24]?)?)';
     protected $chords;
 
     public static function getRegex($regex)
@@ -238,7 +247,7 @@ class Chords
             case self::FIND:
                 return sprintf('/%s(.)/s', self::$chord_regex);
             case self::IS:
-                return sprintf('/%s[^a-zA-Z]/', self::$chord_regex);
+                return sprintf('/%s[^a-zA-Z:]/', self::$chord_regex);
         }
     }
 
