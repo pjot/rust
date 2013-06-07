@@ -225,11 +225,22 @@ class Template
 
 class Chords
 {
-    public static $replacement = '<span class="chord">$1</span>$4';
-    public static $find_chords = '/([ABCDEFG][#b]?\*?m?(aj)?(sus[24]?)?7?)(.)/';
-    public static $is_chord = '/([ABCDEFG][#b]?\*?m?(aj)?(sus[24]?)?7?)[^a-zA-Z]/';
-
+    const FIND = 'find';
+    const IS = 'is';
+    public static $replacement = '<span class="chord">$1</span>$6';
+    public static $chord_regex = '([ABCDEFG][#b]?\*?m?(aj7?)?(add([2469])?)?(sus[24]?)?[56719]?1?)';
     protected $chords;
+
+    public static function getRegex($regex)
+    {
+        switch ($regex)
+        {
+            case self::FIND:
+                return sprintf('/%s(.)/s', self::$chord_regex);
+            case self::IS:
+                return sprintf('/%s[^a-zA-Z]/', self::$chord_regex);
+        }
+    }
 
     public function __construct($chords)
     {
@@ -239,11 +250,11 @@ class Chords
     public function parse()
     {
         $return = $this->chords;
-        $return = preg_replace_callback(self::$find_chords, function ($matches) {
+        $return = preg_replace_callback(self::getRegex(self::FIND), function ($matches) {
             $match = $matches[0];
-            if (preg_match(Chords::$is_chord, $matches[0]))
+            if (preg_match(Chords::getRegex(Chords::IS), $matches[0]))
             {
-                return preg_replace(Chords::$find_chords, Chords::$replacement, $matches[0]);
+                return preg_replace(Chords::getRegex(Chords::FIND), Chords::$replacement, $matches[0]);
             }
             return $matches[0];
         }, $return);
