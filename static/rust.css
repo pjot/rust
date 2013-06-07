@@ -1,0 +1,188 @@
+@font-face
+{
+    font-family: rust-header;
+    src: url('Lobster_1.3.otf');
+}
+
+@font-face
+{
+    font-family: rust-rows;
+    font-weight: light;
+    src: url('Sansation_Light.ttf');
+}
+
+@font-face
+{
+    font-family: rust-rows;
+    src: url('Sansation_Regular.ttf');
+}
+
+@font-face
+{
+    font-family: rust-rows;
+    src: url('Sansation_Bold.ttf');
+    font-weight: bold;
+}
+
+@font-face
+{
+    font-family: rust-chords;
+    src: url('SourceCodePro-Regular.otf');
+}
+
+body
+{
+    background-color: #fafafa;
+}
+
+#toplayer
+{
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 100;
+    background-color: rgba(0, 0, 0, 0.7);
+}
+
+#modal
+{
+    background-color: #fafafa;
+    z-index: 104;
+    position: relative;
+    height: 80%;
+    width: 80%;
+    left: 10%;
+    top: 10%;
+    right: 10%;
+    bottom: 10%;
+    -webkit-border-radius: 2px;
+    border-radius: 2px;
+    border: solid 4px #eaeaea;
+}
+    #modal .chords
+    {
+        padding: 0 10px;
+    }
+    #modal .header
+    {
+        height: 35px;
+        background-color: #eaeaea;
+        font-family: rust-rows;
+        font-weight: light;
+        font-size: 30px;
+        padding: 10px;
+    }
+        #modal .header span
+        {
+            float: left;
+        }
+        #modal .header a
+        {
+            font-weight: bold;
+            text-decoration: none;
+            color: black;
+            float: right;
+        }
+
+
+#content
+{
+    width: 900px;
+    background-color: #eeeeee;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+    -webkit-border-radius: 10px;
+    border-radius: 10px;
+    border: solid 2px #eaeaea;
+}
+
+    #content h1 
+    {
+        text-align: center;
+        font-family: rust-header;
+        font-weight: light;
+        padding: 20px 0 0;
+    }
+    #content #search
+    {
+        padding-bottom: 15px;
+    }
+    #content #search input
+    {
+        display: block;
+        margin: 10px auto;
+        width: 400px;
+        height: 35px;
+        font-family: rust-rows;
+        font-weight: light;
+        font-size: 20px;
+        -webkit-border-radius: 3px;
+        border-radius: 3px;
+        border: 0;
+        padding: 10px;
+    }
+
+    #content #songs
+    {
+        height: 500px;
+        overflow-y: scroll;
+    }
+        #content #songs .song
+        {
+            height: 25px;
+            font-family: rust-rows;
+            font-weight: light;
+            padding: 10px 10px 3px
+        }
+
+            #content #songs .song a
+            {
+                text-decoration: none;
+                color: #232323;
+            }
+
+        #content #songs .song.even
+        {
+            background-color: #fafafa;
+        }
+
+        #content #songs .song.odd
+        {
+            background-color: #dedede;
+        }
+
+    #content #chords
+    {
+        padding: 10px;
+    }
+        #content #chords h2
+        {
+            font-family: rust-rows;
+        }
+        #content #chords pre
+        {
+            font-family: rust-chords;
+        }
+            #content #chords pre .chord
+            {
+                color: #222277;
+            }
+
+        #content #chords #transpose
+        {
+            font-family: rust-rows;
+        }
+            #content #chords #transpose button
+            {
+                font-family: rust-rows;
+                width: 35px;
+                height: 25px;
+            }
+
+    #content #footer
+    {
+        height: 30px;
+    }
