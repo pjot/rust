@@ -1,5 +1,6 @@
 Rust = {
-    songs : []
+    songs : [],
+    full_text_cache : {}
 };
 
 Song = function (element) {
@@ -8,8 +9,15 @@ Song = function (element) {
     this.id = element.data('id');
 };
 
-Song.prototype.matches = function (needle) {
-    return this.name.indexOf(needle) !== -1;
+Song.prototype.matches = function (needle, ids) {
+    for (i in ids)
+    {
+        if (this.id == ids[i])
+        {
+            return this.name.indexOf(needle) !== -1;
+        }
+    }
+    return false;
 };
 
 Song.prototype.hide = function () {
@@ -49,10 +57,22 @@ Rust.parseSongs = function () {
 };
 
 Rust.bindEvents = function () {
-    $('#search_field').keyup(Rust.filterSongs);
+    $('#search_field, #lyric_field').keyup(Rust.filterSongs);
     $('#transpose button').click(function () {
         Rust.transposeSong($(this).attr('rel'));
     });
+};
+
+Rust.fullTextSearch = function (callback) {
+    var search = $('#lyric_field').val();
+    if ( ! Rust.full_text_cache[search])
+    {
+        $.getJSON('ajax.php?lyric=' + search, function (data) {
+            Rust.full_text_cache[search] = data;
+            callback(data);
+        });
+    }
+    callback(Rust.full_text_cache[search]);
 };
 
 Rust.filterSongs = function () {
@@ -64,20 +84,22 @@ Rust.filterSongs = function () {
         return;
     }
     search = search_field.val().toLowerCase();
-    for (s in Rust.songs)
-    {
-        song = Rust.songs[s];
-        if (song.matches(search)) 
+    Rust.fullTextSearch(function (ids) {
+        for (s in Rust.songs)
         {
-            song.show();
-            song.setStyle(row ? 'even' : 'odd');
-            row = ! row;
+            song = Rust.songs[s];
+            if (song.matches(search, ids)) 
+            {
+                song.show();
+                song.setStyle(row ? 'even' : 'odd');
+                row = ! row;
+            }
+            else
+            {
+                song.hide();
+            }
         }
-        else
-        {
-            song.hide();
-        }
-    }
+    });
 };
 
 Rust.transposeSong = function (direction) {

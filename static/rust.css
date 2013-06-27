@@ -54,11 +54,18 @@ body
         font-weight: light;
         padding: 20px 0 0;
     }
-    #content #search
+    #content #lyrics
     {
         padding-bottom: 15px;
     }
-    #content #search input
+    #content #lyrics button
+    {
+        display: block;
+        margin: 0 auto;
+        height: 35px;
+        width: 100px;
+    }
+    #content #search input, #content #lyrics input
     {
         display: block;
         margin: 10px auto;

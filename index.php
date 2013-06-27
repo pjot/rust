@@ -16,6 +16,7 @@ else
 {
     $search = new Template('templates/search.html');
     $search->assign('q', $_GET['q']);
+    $search->assign('l', $_GET['l']);
     $template->assign('search', $search->render());
 
     $view = new SongList(Song::getList());

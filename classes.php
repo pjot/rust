@@ -130,6 +130,22 @@ class Song extends Entity
         $chords = new Chords($this->chords);
         return $chords->parse();
     }
+
+    public static function getByLyrics($lyric)
+    {
+        $lyric = '%' . $lyric . '%';
+        $sql = "select id from songs where chords like :lyrics";
+        $db = DbConnection::getInstance();
+        $sth = $db->prepare($sql);
+        $sth->bindParam(':lyrics', $lyric, PDO::PARAM_STR);
+        $sth->execute();
+        $results = array();
+        foreach ($sth->fetchAll(PDO::FETCH_OBJ) as $row)
+        {
+            $results[] = $row->id;
+        }
+        return $results;
+    }
 }
 
 class Config
