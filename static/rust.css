@@ -53,23 +53,21 @@ body
         font-family: rust-header;
         font-weight: light;
         padding: 20px 0 0;
+	margin: 10px;
     }
     #content #lyrics
     {
         padding-bottom: 15px;
     }
-    #content #lyrics button
+    #content #search
     {
-        display: block;
-        margin: 0 auto;
-        height: 35px;
-        width: 100px;
+        text-align: center;
     }
     #content #search input, #content #lyrics input
     {
-        display: block;
-        margin: 10px auto;
-        width: 400px;
+        display: inline;
+        margin: 10px 5px;
+        width: 350px;
         height: 35px;
         font-family: rust-rows;
         font-weight: light;
