@@ -9,12 +9,12 @@ Song = function (element) {
     this.id = element.data('id');
 };
 
-Song.prototype.matches = function (needle, ids) {
+Song.prototype.matches = function (ids) {
     for (i in ids)
     {
         if (this.id == ids[i])
         {
-            return this.name.indexOf(needle) !== -1;
+            return true;
         }
     }
     return false;
@@ -57,7 +57,7 @@ Rust.parseSongs = function () {
 };
 
 Rust.bindEvents = function () {
-    $('#search_field, #lyric_field').keyup(Rust.filterSongs);
+    $('#lyric_field').keyup(Rust.filterSongs);
     $('#transpose button').click(function () {
         Rust.transposeSong($(this).attr('rel'));
     });
@@ -76,19 +76,12 @@ Rust.fullTextSearch = function (callback) {
 };
 
 Rust.filterSongs = function () {
-    var search_field = $('#search_field'),
-        row = true,
-        search = '';
-    if (search_field.size() === 0)
-    {
-        return;
-    }
-    search = search_field.val().toLowerCase();
+    var row = true;
     Rust.fullTextSearch(function (ids) {
         for (s in Rust.songs)
         {
             song = Rust.songs[s];
-            if (song.matches(search, ids)) 
+            if (song.matches(ids)) 
             {
                 song.show();
                 song.setStyle(row ? 'even' : 'odd');

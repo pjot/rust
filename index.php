@@ -14,11 +14,7 @@ if (isset($_GET['song_id']) && $song = Song::get((int) $_GET['song_id']))
 }
 else
 {
-    $search = new Template('templates/search.html');
-    $search->assign('q', $_GET['q']);
-    $search->assign('l', $_GET['l']);
-    $template->assign('search', $search->render());
-
+    $template->assign('l', isset($_GET['l']) ? $_GET['l'] : null);
     $view = new SongList(Song::getList());
     $template->assign('middle', $view->render());
 }
