@@ -68,13 +68,11 @@ body
     {
         display: inline;
         margin: 10px 5px;
-        width: 350px;
-        height: 35px;
+        width: 550px;
+        height: 50px;
         font-family: rust-rows;
         font-weight: light;
-        font-size: 20px;
-        -webkit-border-radius: 3px;
-        border-radius: 3px;
+        font-size: 30px;
         border: 0;
         padding: 10px;
         color: black;
@@ -86,10 +84,12 @@ body
     }
         #content #songs .song
         {
-            height: 25px;
+            height: 35px;
             font-family: rust-rows;
             font-weight: light;
-            padding: 10px 10px 3px
+            padding: 10px 10px 0px;
+            margin: 5px;
+            font-size: 24px;
         }
 
             #content #songs .song a
@@ -105,7 +105,7 @@ body
 
         #content #songs .song.odd
         {
-            background-color: #dedede;
+            background-color: #f4f4f4;
         }
 
     #content #chords
